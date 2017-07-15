@@ -15,6 +15,8 @@ ssh_conn_paramiko = paramiko.SSHClient()
 # Auto accept SSH host keys.
 ssh_conn_paramiko.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
+# Folder to save backups
+backup_folder = "/home/hshukur/Config_Backup/"
 
 # Used to disable paging on Cisco routers and switches
 def disable_paging_ios_iosxr_iosxe_nxos(command="terminal length 0\n", delay=1):
@@ -38,7 +40,7 @@ for each in ios_iosxr_iosxe_nxos_IPs:
     response = os.system("ping -c 1 {}".format(each))
     if response == 0:
         each = each.rstrip()
-        backup_file = open("/home/hshukur/Config_Backup/Cisco/Config_{}.txt".format(each), "w")
+        backup_file = open(backup_folder + "Cisco/Config_{}.txt".format(each), "w")
         backup_file.write("*" * 32 + "{}".format(each) + "*" * 32 + "\n")
         ssh_conn_paramiko.connect(each, username=username, password=password)
         cli_interaction = ssh_conn_paramiko.invoke_shell()
@@ -66,7 +68,7 @@ for each in asa_IPs:
     response = os.system("ping -c 1 {}".format(each))
     if response == 0:
         each = each.rstrip()
-        backup_file = open("/home/hshukur/Config_Backup/Cisco/Config_{}.txt".format(each), "w")
+        backup_file = open(backup_folder + "Cisco/Config_{}.txt".format(each), "w")
         backup_file.write("*" * 32 + "{}".format(each) + "*" * 32 + "\n")
         ssh_conn_paramiko.connect(each, username=username, password=password)
         cli_interaction = ssh_conn_paramiko.invoke_shell()
@@ -94,7 +96,7 @@ for each in juniper_junos_IPs:
     response = os.system("ping -c 1 {}".format(each))
     if response == 0:
         each = each.rstrip()
-        backup_file = open("/home/hshukur/Config_Backup/Juniper/Config_{}.txt".format(each), "w")
+        backup_file = open(backup_folder + "Juniper/Config_{}.txt".format(each), "w")
         backup_file.write("*" * 32 + "{}".format(each) + "*" * 32 + "\n")
         ssh_conn_paramiko.connect(each, username=username, password=password)
         cli_interaction = ssh_conn_paramiko.invoke_shell()
@@ -119,7 +121,7 @@ for each in juniper_screenos_IPs:
     response = os.system("ping -c 1 {}".format(each))
     if response == 0:
         each = each.rstrip()
-        backup_file = open("/home/hshukur/Config_Backup/Juniper/Config_{}.txt".format(each), "w")
+        backup_file = open(backup_folder + "Juniper/Config_{}.txt".format(each), "w")
         backup_file.write("*" * 32 + "{}".format(each) + "*" * 32 + "\n")
         ssh_conn_paramiko.connect(each, username=username, password=password)
         cli_interaction = ssh_conn_paramiko.invoke_shell()
@@ -146,7 +148,7 @@ for each in huawei_IPs:
     response = os.system("ping -c 1 {}".format(each))
     if response == 0:
         each = each.rstrip()
-        backup_file = open("/home/hshukur/Config_Backup/Huawei/Config_{}.txt".format(each), "w")
+        backup_file = open(backup_folder + "Huawei/Config_{}.txt".format(each), "w")
         backup_file.write("*" * 32 + "{}".format(each) + "*" * 32 + "\n")
         ssh_conn_paramiko.connect(each, username=username, password=password)
         cli_interaction = ssh_conn_paramiko.invoke_shell()
